@@ -57,7 +57,6 @@ for i in range(0,M):
         w = w + y[misclassified[index]]*x[misclassified[index]]
         k = k+1
         wrong()
-        #print(misclassified)
         # Error message if it takes longer than threshold repeats
         if k > threshold:
             print('Stopped after repeat ' + str(i) + ' took longer than ' + str(threshold) + ' iterations.')
