@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -5,6 +6,7 @@ import matplotlib.pyplot as plt
 # Let's repeat the process M times for N points
 M = 1000
 N = 10
+threshold = 1000
 
 # Fixing the numpy sign function
 def sign_function(arg):
@@ -49,15 +51,17 @@ for i in range(0,M):
     generator()
     k = 0
     wrong()
+    # While we still have misclassified points we keep the script running
     while len(misclassified) > 0:
         index = int(np.random.uniform(0,len(misclassified)-1,1))
         w = w + y[misclassified[index]]*x[misclassified[index]]
         k = k+1
         wrong()
         #print(misclassified)
-        #if k > 1000:
-            #print('Blew up after ' + str(i) + ' repeats.')
-            #quit()
+        # Error message if it takes longer than threshold repeats
+        if k > threshold:
+            print('Stopped after repeat ' + str(i) + ' took longer than ' + str(threshold) + ' iterations.')
+            sys.exit()
     iterations[i] = k
 
 bins_vector = np.linspace(0.0, 200.0, num=50)
